@@ -3,7 +3,8 @@ public class test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stubasdf
-			System.out.println("sysoutsdf");
+		System.out.println("Test1");
+		System.out.println("Test2");
 	}
 
 }
