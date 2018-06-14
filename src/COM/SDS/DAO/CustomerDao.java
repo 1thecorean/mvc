@@ -116,9 +116,10 @@ public class CustomerDao extends Dao<String, CustomerVO> {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;
+			throw e;   
 		}finally {
 			close(pstmt);
+			close(rset);
 		}
 		
 		
