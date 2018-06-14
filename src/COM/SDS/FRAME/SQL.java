@@ -11,9 +11,10 @@ public class SQL {
 	public static String updateCustomer = 
 			"UPDATE CUSTOMER SET PWD=?, NAME=?  WHERE ID=?";	
 	public static String getCustomer = 
-			"SELECT * FROM CUSTOMER WHERE ID=?";
-	public static String getCustomerItem = 
-			"SELECT * FROM CUSTOMERITEM WHERE ID=?";
+			"SELECT c.ID, c.PWD, c.NAME, ci.NAME as ITEM, "
+					+ "ci.PRICE FROM CUSTOMER c, "
+					+ "CUSTOMERITEM ci "
+					+ "WHERE c.ID=ci.ID";
 	public static String selectAll=
 			"SELECT c.ID, c.PWD, c.NAME, ci.NAME as ITEM, "
 			+ "ci.PRICE FROM CUSTOMER c, "

@@ -81,10 +81,9 @@ public class CustomerDao extends Dao<String, CustomerVO> {
 			pstmt.setString(1, t);
 			rset=pstmt.executeQuery();
 			rset.next();
-			customer = new CustomerVO();
-				customer.setId(rset.getString("ID"));
-				customer.setPwd(rset.getString("PWD"));
-				customer.setPwd(rset.getString("NAME"));
+			customer=new CustomerVO(rset.getString("ID"),rset.getString("PWD"),rset.getString("NAME"));
+			customer.setItem(new ItemVO(rset.getString("ID"),rset.getString("ITEM"),rset.getDouble("PRICE")));
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,7 +115,7 @@ public class CustomerDao extends Dao<String, CustomerVO> {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e;   
+			throw e;       
 		}finally {
 			close(pstmt);
 			close(rset);
