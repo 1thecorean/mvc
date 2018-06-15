@@ -7,14 +7,13 @@ import java.util.ArrayList;
 
 import COM.SDS.FRAME.Dao;
 import COM.SDS.FRAME.SQL;
-import COM.SDS.VO.CustomerVO;
 import COM.SDS.VO.ItemVO;
 
 public class ItemDao extends Dao<String, ItemVO> {
 
+	
 	@Override
 	public void insert(ItemVO v, Connection con) throws Exception {
-		// TODO Auto-generated method stub
 		PreparedStatement pstmt = con.prepareStatement(SQL.insertItem);
 		try {
 			pstmt.setString(1, v.getId());
@@ -69,7 +68,6 @@ public class ItemDao extends Dao<String, ItemVO> {
 		
 		
 		return item;
-		
 	}
 
 	@Override
@@ -77,5 +75,35 @@ public class ItemDao extends Dao<String, ItemVO> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//t에 ID가 들어가서 한사람이 가진 중복없는 아이템들을 반환.
+	@Override
+	public ArrayList<ItemVO> List(String t, Connection con) throws Exception {
+		ArrayList<ItemVO> list=new ArrayList<>();
+		ItemVO item=null;
+		PreparedStatement pstmt = null;
+		ResultSet rset=null;
+		try {
+			pstmt=con.prepareStatement(SQL.ListOfItems);
+			pstmt.setString(1, t);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				item = new ItemVO(rset.getString("ID"),rset.getString("NAME"),rset.getDouble("PRICE"));
+				list.add(item);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	
 
 }

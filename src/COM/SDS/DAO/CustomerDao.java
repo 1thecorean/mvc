@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 import COM.SDS.FRAME.Dao;
 import COM.SDS.FRAME.SQL;
@@ -13,6 +12,8 @@ import COM.SDS.VO.ItemVO;
 
 public class CustomerDao extends Dao<String, CustomerVO> {
 
+
+	
 	@Override
 	public void insert(CustomerVO v, Connection con) throws Exception {
 		// Connection을 통해 PreparedStatement 생성
@@ -93,8 +94,6 @@ public class CustomerDao extends Dao<String, CustomerVO> {
 			close(rset);
 		}
 		
-		
-		
 		return customer;
 	}
 
@@ -120,11 +119,41 @@ public class CustomerDao extends Dao<String, CustomerVO> {
 			close(pstmt);
 			close(rset);
 		}
-		
-		
-		
 		return customers;
 	}
+	
+	//t에 아이템명이 들어가서 해당 아이템을 가진 사람들을 반환.
+	@Override
+	public ArrayList<CustomerVO> List(String t, Connection con) throws Exception {
+		ArrayList<CustomerVO> list=new ArrayList<>();
+		CustomerVO customer=null;
+		PreparedStatement pstmt = null;
+		ResultSet rset=null;
+		try {
+			pstmt=con.prepareStatement(SQL.ListOfPeople);
+			pstmt.setString(1, t);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				customer = new CustomerVO(rset.getString("ID"),rset.getString("PWD"),rset.getString("NAME"));
+				list.add(customer);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	
+
+	
 
 }
 

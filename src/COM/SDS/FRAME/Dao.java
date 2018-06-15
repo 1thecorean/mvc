@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+
 public abstract class Dao<T,V>{
 	
 	public void close(ResultSet rset) throws SQLException {
@@ -21,7 +23,8 @@ public abstract class Dao<T,V>{
 	public abstract void insert(V v,Connection con) throws Exception;
 	public abstract void delete(T t,Connection con) throws Exception;
 	public abstract void update(V v,Connection con) throws Exception;
-	public abstract V select(T t,Connection con) throws Exception;//1°³Á¶È¸
-	public abstract ArrayList<V> select(Connection con) throws Exception;//2°³Á¶È¸
+	public abstract V select(T t,Connection con) throws Exception;//1ï¿½ï¿½ï¿½ï¿½È¸
+	public abstract ArrayList<V> select(Connection con) throws Exception;//2ï¿½ï¿½ï¿½ï¿½È¸
+	public abstract ArrayList<V> List(T t, Connection con) throws Exception;
 
 }
